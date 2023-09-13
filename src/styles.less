@@ -1,1 +1,121 @@
-/* You can add global styles to this file, and also import other style files */
+//间距
+@spaceType: {
+    m: margin;
+    p: padding;
+  };
+  @spaceDirections: {
+    t: top;
+    r: right;
+    b: bottom;
+    l: left;
+  };
+  @spaceBaseSize: 8px;
+  @spaceSizes: {
+    none:0;
+    xs:0.5;
+    sm: 1;
+    md: 2;
+    lg: 3;
+    xl: 4;
+  };
+  each(@spaceType, .(@typeVal, @typeKey, @typeIdx) {
+    each(@spaceDirections, .(@dirVal, @dirKey, @dirIdx) {
+      each(@spaceSizes, {
+        .@{typeKey}@{dirKey}-@{key} {
+            @{typeVal}-@{dirVal}: @value * @spaceBaseSize;
+        } 
+      })
+    })
+  
+    each(@spaceSizes, {
+      .@{typeKey}a-@{key} {
+          @{typeVal}: @value * @spaceBaseSize;
+      }
+  
+      .@{typeKey}x-@{key} {
+          @{typeVal}-left: @value * @spaceBaseSize;
+          @{typeVal}-right: @value * @spaceBaseSize;
+      }
+      .@{typeKey}y-@{key} {
+          @{typeVal}-top: @value * @spaceBaseSize;
+          @{typeVal}-bottom: @value * @spaceBaseSize;
+      } 
+    })
+  });
+  
+
+  .flex {
+    display: flex;
+  }
+  .flex-column {
+    flex-direction: column;
+  }
+  .align-start {
+    align-items: flex-start;
+  }
+  .align-center {
+    align-items: center;
+  }
+  .align-end {
+    align-items: flex-end;
+  }
+  .justify-start {
+    justify-content: flex-start;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-around {
+    justify-content: space-around;
+  }
+  .justify-end {
+    justify-content: flex-end;
+  }
+  .flex-center {
+    justify-content: center;
+    align-items: center;
+  }
+  .flex-1 {
+    flex: 1;
+  }
+  .flex-shrink {
+    flex-shrink: 0;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .flex-nowrap {
+    flex-wrap: nowrap;
+  }
+
+  .full-height {
+    height: 100%;
+  }
+  
+  nz-table > nz-spin {
+    height: 100%;
+  }
+  
+  .ant-spin-container {
+    height: 100%;
+  }
+  
+  .ant-table {
+    height: calc(100% - 55px);
+  }
+  
+  nz-table-inner-scroll {
+    height: 100%;
+  }
+
+  .ant-card-small>.ant-card-head>.ant-card-head-wrapper>.ant-card-head-title {
+    padding: 8px 8px; 
+  }
+
+  .ant-card-small>.ant-card-body {
+    padding: 12px 20px;
+}
+  

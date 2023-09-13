@@ -5,7 +5,8 @@ export interface Bill {
   amount: number;
 }
 export interface Category {
-  id: string;
+  value: string;
   type: number; // 0: Income, 1: Expenditure
-  name: string;
+  text: string;
+  amount?: number;
 }
