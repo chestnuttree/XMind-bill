@@ -1,49 +1,26 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Bill, Category } from '../models/csv.model';
-import { BehaviorSubject, forkJoin } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
 import { typeOptions } from './static-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BillService {
-  billArray: Bill[] = [];
-
-  categoryOptions: Category[] = [];
   category2name:{ [key: string]: string }  = {};
-
-  typeOptions = typeOptions
   type2name:{ [key: string]: string }  = {};
   
-
-  billChange$:BehaviorSubject<any> = new BehaviorSubject(null);
-
   constructor(private http: HttpClient) {
-    this.initData()
-    this.typeOptions.map(val=>{
+    typeOptions.map(val=>{
       this.type2name[val.value] = val.text
     })
   }
-
-  initData() {
-    forkJoin([
+  getInitData() {
+    return forkJoin([
       this.http.get('./assets/bill.csv', { responseType: 'text' }),
-      this.http.get('./assets/categories.csv', { responseType: 'text' })])
-      .subscribe(res=>{
-        this.billArray = []
-        const billToRowArray = res[0].split('\n');
-        for (let index = 1; index < billToRowArray.length; index++) {
-          const row = billToRowArray[index].split(',');
-          this.billArray.push({
-            type: Number(row[0]),
-            time: Number(row[1]),
-            category: row[2],
-            amount: Number(row[3]),
-          });
-        }
+      this.http.get('./assets/categories.csv', { responseType: 'text' })]).pipe(map((res)=>{
 
-        this.categoryOptions = []
+        const categoryOptions = []
         const categoryToRowArray = res[1].split('\n');
         for (let index = 1; index < categoryToRowArray.length; index++) {
           const row = categoryToRowArray[index].split(',');
@@ -53,14 +30,29 @@ export class BillService {
             text: row[2],
           }
           this.category2name[row[0]] = category.text
-          this.categoryOptions.push(category);
+          categoryOptions.push(category);
         }
 
-        this.billChange$.next({
-          type:'init'
-        })
-      })
+        const billArray = []
+        const billToRowArray = res[0].split('\n');
+        for (let index = 1; index < billToRowArray.length; index++) {
+          const row = billToRowArray[index].split(',');
+          const type = Number(row[0])
+          const typeData = typeOptions.find(val=>val.value == type)
+          billArray.push({
+            type: type,
+            time: Number(row[1]),
+            category: row[2],
+            amount: Number(row[3]),
+            categoryName: this.category2name[row[2]]?this.category2name[row[2]]:'其他',
+            typeName: typeData?.text
+          });
+        }
+        return {
+          billArray,
+          categoryOptions
+        }
+      }))
   }
-
 
 }

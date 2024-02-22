@@ -1,12 +1,12 @@
 export interface Bill {
   time: number;
   type: number;
-  category?: string;
   amount: number;
+  category: string;
 }
 export interface Category {
   value: string;
-  type: number; // 0: Income, 1: Expenditure
+  type: number; // 1: Income, 0: Expenditure
   text: string;
   amount?: number;
 }

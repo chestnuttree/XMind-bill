@@ -14,7 +14,7 @@
   </div>
 
   <div class="flex flex-wrap justify-end">
-    <div class="mr-md mt-md" *ngFor="let item of categoryTable; let i = index">
+    <div class="mr-md mt-md" *ngFor="let item of expenditureData; let i = index">
       <nz-ribbon *ngIf="i<3" [nzText]="i+1+''" [nzColor]="i==0?'red':(i==1?'volcano':'pink')">
         <nz-card nzSize="small" [nzTitle]="item.text+'(￥)'">{{item.amount}}</nz-card>
       </nz-ribbon>
@@ -28,14 +28,13 @@
       <span class="mr-sm">共 {{ tableData.length }} 条</span>
     </ng-template>
     <nz-table #table class="full-height" nzSize="middle" [nzScroll]="{ y: 'calc(100% - 50px)' }" nzShowSizeChanger
-      [nzData]="tableData" [nzTotal]="total" [nzShowTotal]="totalTemplate" [nzPageSize]="pageSize"
-      [nzPageIndex]="pageIndex" [nzPageSizeOptions]="[20,50]"
-      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
+      [nzData]="tableData" [nzTotal]="page.total" [nzShowTotal]="totalTemplate" [nzPageSize]="page.size"
+      [nzPageIndex]="page.index" [nzPageSizeOptions]="[20,50]">
       <thead>
         <tr>
           <th nzColumnKey="amount" [nzSortFn]="sortByAmount">金额(￥)</th>
-          <th nzColumnKey="type" [nzFilters]="billService.typeOptions" [nzFilterFn]="filterByType">类型</th>
-          <th nzColumnKey="category" [nzFilters]="billService.categoryOptions" [nzFilterFn]="filterByCategory">类别</th>
+          <th nzColumnKey="type" [nzFilters]="typeOptions" [nzFilterFn]="filterByType">类型</th>
+          <th nzColumnKey="category" [nzFilters]="categoryOptions" [nzFilterFn]="filterByCategory">类别</th>
           <th nzColumnKey="time" [nzSortFn]="sortByTime">时间</th>
         </tr>
       </thead>
@@ -43,7 +42,7 @@
         <tr *ngFor="let data of table.data;trackBy: trackByTime">
           <td>{{ data.amount }}</td>
           <td>{{ billService.type2name[data.type] }}</td>
-          <td>{{ data.category?billService.category2name[data.category]:'其他' }}</td>
+          <td>{{ billService.category2name[data.category]||'其他' }}</td>
           <td>{{ data.time | date:'yyyy-MM-dd HH:mm:ss'  }} </td>
         </tr>
       </tbody>
@@ -68,7 +67,7 @@
         <nz-form-label nz-col nzFlex="60px" nzRequired>类型</nz-form-label>
         <nz-form-control nz-col nzErrorTip="请选择类型">
           <nz-select formControlName="type" nzPlaceHolder="请选择">
-            <nz-option *ngFor="let item of billService.typeOptions" [nzValue]="item.value" [nzLabel]="item.text">
+            <nz-option *ngFor="let item of typeOptions" [nzValue]="item.value" [nzLabel]="item.text">
             </nz-option>
           </nz-select>
         </nz-form-control>
@@ -84,7 +83,7 @@
         <nz-form-label nz-col nzFlex="60px">分类</nz-form-label>
         <nz-form-control nz-col>
           <nz-select formControlName="category" nzPlaceHolder="请选择">
-            <nz-option *ngFor="let item of billService.categoryOptions" [nzValue]="item.value" [nzLabel]="item.text">
+            <nz-option *ngFor="let item of categoryOptions" [nzValue]="item.value" [nzLabel]="item.text">
             </nz-option>
           </nz-select>
         </nz-form-control>
