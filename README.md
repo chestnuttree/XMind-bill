@@ -23,6 +23,6 @@ Run `npm run test` to execute the unit tests via [Karma](https://karma-runner.gi
 
 ## start
 
-Run `npn run start` for a dev server. Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
+Run `npm run start` for a dev server. Navigate to http://localhost:4200/. The application will automatically reload if you change any of the source files.
 
 
