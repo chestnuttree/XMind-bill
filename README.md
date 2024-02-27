@@ -11,7 +11,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 | Edge | last 2 versions | last 2 versions | last 2 versions | last 2 versions | last 2 versions
 
 ## 📦 Installation
-You can also install with npm or yarn
+You can install with npm or yarn
 
 ```bash
 $ npm install
