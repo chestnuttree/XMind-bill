@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
   handleSave() {
     if (this.validateForm.valid) {
       const value = this.validateForm.value;
-      this.originalData.unshift({
+      this.originalData.push({
         ...value,
         time: value.time.getTime(),
         category: value.category || '',
