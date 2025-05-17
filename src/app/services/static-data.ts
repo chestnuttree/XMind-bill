@@ -1,4 +1,4 @@
 export const typeOptions = [
-  { value: 0, text: '支出' },
-  { value: 1, text: '收入' },
+  { value: 0, text: 'Income' },
+  { value: 1, text: 'Expend' },
 ];

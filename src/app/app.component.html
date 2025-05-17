@@ -1,24 +1,24 @@
 <section class="full-height pa-md flex flex-column">
 
-  <nz-divider nzText="简·记账本" nzOrientation="left"></nz-divider>
+  <nz-divider nzText="Account book" nzOrientation="left"></nz-divider>
   <div class="flex justify-between">
     <div class="flex align-center">
-      <button (click)="handleAdd()" class="mr-md" nzSize="large" nz-button nzType="primary">新增</button>
+      <button (click)="handleAdd()" class="mr-md" nzSize="large" nz-button nzType="primary">Add</button>
       <nz-date-picker [(ngModel)]="date" nzSize="large" nzMode="month" (ngModelChange)="filterTableData()">
       </nz-date-picker>
     </div>
     <div class="flex">
-      <nz-statistic class="mx-lg" [nzValue]="totalIncome" nzTitle="收入（￥）"></nz-statistic>
-      <nz-statistic class="mx-lg" [nzValue]="totalPay" nzTitle="支出（￥）"></nz-statistic>
+      <nz-statistic class="mx-lg" [nzValue]="totalIncome" nzTitle="Income($)"></nz-statistic>
+      <nz-statistic class="mx-lg" [nzValue]="totalPay" nzTitle="Expend($)"></nz-statistic>
     </div>
   </div>
 
   <div class="flex flex-wrap justify-end">
     <div class="mr-md mt-md" *ngFor="let item of expenditureData; let i = index">
       <nz-ribbon *ngIf="i<3" [nzText]="i+1+''" [nzColor]="i==0?'red':(i==1?'volcano':'pink')">
-        <nz-card nzSize="small" [nzTitle]="item.text+'(￥)'">{{item.amount}}</nz-card>
+        <nz-card nzSize="small" [nzTitle]="item.text+'($)'">{{item.amount}}</nz-card>
       </nz-ribbon>
-      <nz-card *ngIf="i>2" nzSize="small" [nzTitle]="item.text+'(￥)'">{{item.amount}}</nz-card>
+      <nz-card *ngIf="i>2" nzSize="small" [nzTitle]="item.text+'($)'">{{item.amount}}</nz-card>
     </div>
   </div>
 
@@ -32,17 +32,17 @@
       [nzPageIndex]="page.index" [nzPageSizeOptions]="[20,50]">
       <thead>
         <tr>
-          <th nzColumnKey="amount" [nzSortFn]="sortByAmount">金额(￥)</th>
-          <th nzColumnKey="type" [nzFilters]="typeOptions" [nzFilterFn]="filterByType">类型</th>
-          <th nzColumnKey="category" [nzFilters]="categoryOptions" [nzFilterFn]="filterByCategory">类别</th>
-          <th nzColumnKey="time" [nzSortFn]="sortByTime">时间</th>
+          <th nzColumnKey="amount" [nzSortFn]="sortByAmount">Amount($)</th>
+          <th nzColumnKey="type" [nzFilters]="typeOptions" [nzFilterFn]="filterByType">Type</th>
+          <th nzColumnKey="category" [nzFilters]="categoryOptions" [nzFilterFn]="filterByCategory">Category</th>
+          <th nzColumnKey="time" [nzSortFn]="sortByTime">Time</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of table.data;trackBy: trackByTime">
           <td>{{ data.amount }}</td>
           <td>{{ billService.type2name[data.type] }}</td>
-          <td>{{ billService.category2name[data.category]||'其他' }}</td>
+          <td>{{ billService.category2name[data.category]||'Other' }}</td>
           <td>{{ data.time | date:'yyyy-MM-dd HH:mm:ss'  }} </td>
         </tr>
       </tbody>
@@ -51,38 +51,38 @@
 
 </section>
 
-<nz-modal nzWidth="360px" [(nzVisible)]="isVisible" nzTitle="新增账单" (nzOnCancel)="isVisible = false"
+<nz-modal nzWidth="360px" [(nzVisible)]="isVisible" nzTitle="New Bill" (nzOnCancel)="isVisible = false"
   [nzMaskClosable]="false">
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="validateForm">
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px" nzRequired>时间</nz-form-label>
-        <nz-form-control nz-col nzErrorTip="请选择时间">
+        <nz-form-label nz-col nzFlex="60px" nzRequired>Time</nz-form-label>
+        <nz-form-control nz-col nzErrorTip="Please select the time">
           <nz-date-picker class="full-width" formControlName="time" nzShowTime [nzAllowClear]="false"
             nzFormat="yyyy-MM-dd HH:mm:ss">
           </nz-date-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px" nzRequired>类型</nz-form-label>
-        <nz-form-control nz-col nzErrorTip="请选择类型">
-          <nz-select formControlName="type" nzPlaceHolder="请选择">
+        <nz-form-label nz-col nzFlex="60px" nzRequired>Type</nz-form-label>
+        <nz-form-control nz-col nzErrorTip="Please select the type">
+          <nz-select formControlName="type" nzPlaceHolder="Please select">
             <nz-option *ngFor="let item of typeOptions" [nzValue]="item.value" [nzLabel]="item.text">
             </nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzFlex="60px" nzRequired>金额</nz-form-label>
-        <nz-form-control nz-col nzErrorTip="请输金额">
+        <nz-form-label nzFlex="60px" nzRequired>Amount</nz-form-label>
+        <nz-form-control nz-col nzErrorTip="Please enter the amount">
           <nz-input-number class="full-width" formControlName="amount" [nzMin]="0" [nzStep]="1" [nzPrecision]="2">
           </nz-input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px">分类</nz-form-label>
+        <nz-form-label nz-col nzFlex="60px">Category</nz-form-label>
         <nz-form-control nz-col>
-          <nz-select formControlName="category" nzPlaceHolder="请选择">
+          <nz-select formControlName="category" nzPlaceHolder="Please select">
             <nz-option *ngFor="let item of categoryOptions" [nzValue]="item.value" [nzLabel]="item.text">
             </nz-option>
           </nz-select>
@@ -91,7 +91,7 @@
     </form>
   </ng-container>
   <ng-container *nzModalFooter>
-    <button nz-button nzType="default" (click)="isVisible = false">取消</button>
-    <button nz-button nzType="primary" (click)="handleSave()">保存</button>
+    <button nz-button nzType="default" (click)="isVisible = false">Cancel</button>
+    <button nz-button nzType="primary" (click)="handleSave()">Save</button>
   </ng-container>
 </nz-modal>
