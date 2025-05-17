@@ -25,7 +25,7 @@
 
   <div class="flex-1 over-hidden mt-md">
     <ng-template #totalTemplate let-total>
-      <span class="mr-sm">共 {{ tableData.length }} 条</span>
+      <span class="mr-sm"> {{ tableData.length }} items</span>
     </ng-template>
     <nz-table #table class="full-height" nzSize="middle" [nzScroll]="{ y: 'calc(100% - 50px)' }" nzShowSizeChanger
       [nzData]="tableData" [nzTotal]="page.total" [nzShowTotal]="totalTemplate" [nzPageSize]="page.size"

@@ -5,9 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
-import { zh_CN } from 'ng-zorro-antd/i18n';
+import { en_US } from 'ng-zorro-antd/i18n';
 import { DatePipe, registerLocaleData } from '@angular/common';
-import zh from '@angular/common/locales/zh';
+import en from '@angular/common/locales/en';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
@@ -21,7 +21,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-registerLocaleData(zh);
+registerLocaleData(en);
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ registerLocaleData(zh);
     NzBadgeModule
   ],
   providers: [
-    { provide: NZ_I18N, useValue: zh_CN },
+    { provide: NZ_I18N, useValue: en_US },
     DatePipe
   ],
   bootstrap: [AppComponent]
