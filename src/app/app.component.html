@@ -1,6 +1,6 @@
 <section class="full-height pa-md flex flex-column">
 
-  <nz-divider nzText="Account book" nzOrientation="left"></nz-divider>
+  <nz-divider nzText="Account Book" nzOrientation="left"></nz-divider>
   <div class="flex justify-between">
     <div class="flex align-center">
       <button (click)="handleAdd()" class="mr-md" nzSize="large" nz-button nzType="primary">Add</button>
@@ -51,12 +51,12 @@
 
 </section>
 
-<nz-modal nzWidth="360px" [(nzVisible)]="isVisible" nzTitle="New Bill" (nzOnCancel)="isVisible = false"
+<nz-modal nzWidth="400px" [(nzVisible)]="isVisible" nzTitle="New Bill" (nzOnCancel)="isVisible = false"
   [nzMaskClosable]="false">
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="validateForm">
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px" nzRequired>Time</nz-form-label>
+        <nz-form-label nz-col nzFlex="90px" nzRequired>Time</nz-form-label>
         <nz-form-control nz-col nzErrorTip="Please select the time">
           <nz-date-picker class="full-width" formControlName="time" nzShowTime [nzAllowClear]="false"
             nzFormat="yyyy-MM-dd HH:mm:ss">
@@ -64,7 +64,7 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px" nzRequired>Type</nz-form-label>
+        <nz-form-label nz-col nzFlex="90px" nzRequired>Type</nz-form-label>
         <nz-form-control nz-col nzErrorTip="Please select the type">
           <nz-select formControlName="type" nzPlaceHolder="Please select">
             <nz-option *ngFor="let item of typeOptions" [nzValue]="item.value" [nzLabel]="item.text">
@@ -73,14 +73,14 @@
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzFlex="60px" nzRequired>Amount</nz-form-label>
+        <nz-form-label nzFlex="90px" nzRequired>Amount</nz-form-label>
         <nz-form-control nz-col nzErrorTip="Please enter the amount">
           <nz-input-number class="full-width" formControlName="amount" [nzMin]="0" [nzStep]="1" [nzPrecision]="2">
           </nz-input-number>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item nz-row>
-        <nz-form-label nz-col nzFlex="60px">Category</nz-form-label>
+        <nz-form-label nz-col nzFlex="90px">Category</nz-form-label>
         <nz-form-control nz-col>
           <nz-select formControlName="category" nzPlaceHolder="Please select">
             <nz-option *ngFor="let item of categoryOptions" [nzValue]="item.value" [nzLabel]="item.text">
